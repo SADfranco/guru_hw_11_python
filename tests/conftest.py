@@ -6,7 +6,7 @@ from utils import attach
 
 
 @pytest.fixture(scope='function', autouse=True)
-def setup_browser(request):
+def configuration(request):
     options = Options()
     selenoid_capabilities = {
         "browserName": "chrome",
