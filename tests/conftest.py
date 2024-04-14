@@ -26,9 +26,7 @@ def setup_browser(request):
     browser.config.window_width = 1920
     browser.config.window_height = 1080
     browser.config.driver = driver
-    options = webdriver.ChromeOptions()
-    options.page_load_strategy = 'none'
-    browser.config.driver_options = options
+
     yield browser
 
     attach.add_screenshot(browser)

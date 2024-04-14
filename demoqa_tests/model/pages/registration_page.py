@@ -30,7 +30,6 @@ class RegistrationPage:
                 os.path.join(os.path.dirname(tests.__file__), f'resources/{user.photo}')
             )
         )
-        # browser.element('#uploadPicture').send_keys(os.path.abspath(f'resources/{user.photo}'))
         browser.element('#currentAddress').type(user.address)
         browser.element('#state').perform(command.js.scroll_into_view)
         browser.element('#state').click()
