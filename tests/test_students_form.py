@@ -1,11 +1,18 @@
 import allure
+from allure_commons.types import Severity
 
 from demoqa_tests.model.pages.registration_page import RegistrationPage
 from demoqa_tests.data.users import User
 
 
 @allure.tag('web')
-@allure.title('Successful fill form')
+@allure.title('Successful fill registration form')
+@allure.tag("web")
+@allure.severity(Severity.CRITICAL)
+@allure.label("owner", "SADfranco")
+@allure.feature("Students registration form")
+@allure.link("'https://demoqa.com'", name="Testing")
+
 def test_fill_and_send():
     test_user = User(
         first_name='Akhil',
@@ -23,8 +30,10 @@ def test_fill_and_send():
         state='NCR',
         city='Delhi'
     )
-
     registration_page = RegistrationPage()
-    registration_page.open()
-    registration_page.register_user(test_user)
-    registration_page.should_registered_user_with(test_user)
+    with allure.step("Open registration page"):
+        registration_page.open()
+    with allure.step("Fill form and send"):
+        registration_page.register_user(test_user)
+    with allure.step("Check registered user"):
+        registration_page.should_registered_user_with(test_user)
