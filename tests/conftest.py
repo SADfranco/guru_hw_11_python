@@ -3,6 +3,13 @@ from selene import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from utils import attach
+from dotenv import load_dotenv
+import os
+
+
+@pytest.fixture(scope="session", autouse=True)
+def load_env():
+    load_dotenv()
 
 
 @pytest.fixture(scope='function', autouse=True)
@@ -17,15 +24,19 @@ def configuration(request):
         }
     }
     options.capabilities.update(selenoid_capabilities)
+
+    selenoid_login = os.getenv("SELENOID_LOGIN")
+    selenoid_pass = os.getenv("SELENOID_PASS")
+
     driver = webdriver.Remote(
-        command_executor=f"https://user1:1234@selenoid.autotests.cloud/wd/hub",
+        command_executor=f"https://{selenoid_login}:{selenoid_pass}@selenoid.autotests.cloud/wd/hub",
         options=options
     )
 
-    browser.config.base_url = 'https://demoqa.com'
     browser.config.window_width = 1920
     browser.config.window_height = 1080
     browser.config.driver = driver
+
 
     yield browser
 

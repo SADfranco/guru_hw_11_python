@@ -6,7 +6,7 @@ import tests
 class RegistrationPage:
 
     def open(self):
-        browser.open('/automation-practice-form')
+        browser.open('https://demoqa.com/automation-practice-form')
         return self
 
     def register_user(self, user):
